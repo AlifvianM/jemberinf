@@ -1,0 +1,16 @@
+{% extends "blog/base.html" %}
+
+{% block content %}
+		<article class="media content-section">
+      <img class="rounded-circle article-img" src="{{object.penulis.profile.image.url}}">
+          <div class="media-body">
+            <div class="article-metadata">
+              <a class="mr-2" href="#">{{ object.penulis }}</a>
+              <small class="text-muted">{{ object.waktu|date:"F d, Y" }}</small>
+            </div>
+            <h2 class="article-title">{{ object.judul }}</h2>
+            <img src="{{object.foto}}">
+            <p class="article-content">{{ object.isi }}</p>
+          </div>
+        </article>
+{% endblock content %}
