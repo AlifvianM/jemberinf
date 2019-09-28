@@ -34,7 +34,8 @@
             <!-- Navbar Right Side -->
             <div class="navbar-nav">
               {% if user.is_authenticated %}
-                {# <img class="rounded-circle account-img" src="{{ user.profile.image.url }}"> #}
+                <a class="nav-item nav-link" href="{% url 'post-create' %}">new post</a>
+                
                 <a class="nav-item nav-link" href="{% url 'profile' %}">{{user.username}}</a>
                 <a class="nav-item nav-link" href="{% url 'logout' %}">Logout</a>
               {% else %}

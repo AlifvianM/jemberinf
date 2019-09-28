@@ -44,10 +44,29 @@ class PostUpdateView(LoginRequiredMixin, UserPassesTestMixin ,UpdateView):
 		'foto',
 	]
 
-	def form_valid(self, form):
-		form.instance.penulis = self.request.user
-		return super().form_valid(form)
+	# def form_valid(self, form):
+	# 	form.instance.penulis = self.request.user
+	# 	return super().form_valid(form)
+	
+	extra_context ={
+			'title':'update',
+	}
 
+	def get_context_data(self, **kwargs):
+		self.kwargs.update(self.extra_context)
+		return super().get_context_data(**kwargs)
+
+
+	def test_func(self):
+		post = self.get_object()
+		if self.request.user==post.penulis:
+			return True
+		return False
+
+
+class PostDeleteView(LoginRequiredMixin, UserPassesTestMixin, DeleteView):
+	model = Post
+	success_url = '/'
 
 	def test_func(self):
 		post = self.get_object()

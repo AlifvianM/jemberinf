@@ -3,6 +3,8 @@ from django.utils import timezone
 from django.contrib.auth.models import User
 from PIL import Image
 from django.urls import reverse
+from django.utils.text import slugify
+
 # Create your models here.
 
 class Post(models.Model):
@@ -11,12 +13,14 @@ class Post(models.Model):
     foto        = models.ImageField(default='default.jpg', upload_to='profile_pics')
     waktu       = models.DateTimeField(default = timezone.now)
     penulis     = models.ForeignKey(User, on_delete =  models.CASCADE)
+    slug        = models.SlugField(blank = True, editable = False)
 
     def __str__(self):
         return self.judul
 
     def save(self):
-        super().save()
+        self.slug = slugify(self.judul)
+        super(Post, self).save()
 
         img = Image.open(self.foto.path)
 
